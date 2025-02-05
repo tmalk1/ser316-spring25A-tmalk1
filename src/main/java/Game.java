@@ -202,14 +202,16 @@ public class Game
     /**
      * Pulls out a random animal and sets it as answer
      */
-    public void setRandomWord()
-    {
-
-        String[] animals = {"dog", "horse", "pony", "cat", "lion", "bear","lioncub", };
-
-        int randomNum = 0;
-        randomNum = (int) (Math.floor(Math.random() * (100 - 2 + 1) + 2) % animals.length);
-        this.answer = animals[randomNum];
+    public void setRandomWord() {
+    try {
+        List<String> animals = Files.readAllLines(Paths.get("animals.txt"));
+        Random random = new Random();
+        int randomNum = random.nextInt(animals.size());
+        this.answer = animals.get(randomNum);
+    } catch (IOException e) {
+        e.printStackTrace();
+        // Handle error gracefully
     }
+}
 
 }
