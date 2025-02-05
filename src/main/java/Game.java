@@ -6,6 +6,12 @@ import java.util.*;
  * Game is lost when the user made 10 guesses and did not guess the word.
  *
  */
+public enum GameStatus {
+    IN_PROGRESS,
+    WON,
+    GAME_OVER
+}
+
 public class Game
 {
 
@@ -26,7 +32,8 @@ public class Game
     private String leaderboard = "leaderboard.txt";
 
     /** The status of the game. {0 - In progress, 1 - Game won, 2 - game over}*/
-    protected int gameStatus = 0;
+   protected GameStatus gameStatus = GameStatus.IN_PROGRESS;
+
 
     // all things that were already guessed, needs to be cleared for each game
     ArrayList<String> guesses = new ArrayList<String>();
@@ -53,7 +60,8 @@ public class Game
      * Gets the current status of the game.
      * @return
      */
-    public int getGameStatus() {return this.gameStatus;}
+    public GameStatus getGameStatus() { return this.gameStatus; }
+
 
     /**
      * Sets the score for the game.
