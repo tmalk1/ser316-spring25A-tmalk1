@@ -1,10 +1,13 @@
 import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 /**
  * This is the main class that initializes and runs the game.
  */
 public class Main {
-    static Scanner scanner = new Scanner(System.in);
+    
+    // SER316 TASK 2 SPOT-BUGS FIX: Explicitly specify UTF-8 encoding to avoid reliance on default encoding
+    static Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8); 
 
     /**
      * The main method that starts the game.
@@ -19,5 +22,8 @@ public class Main {
         System.out.println("Current word: " + game.getAnswer());
         System.out.println(game.makeGuess("a"));
         System.out.println("Automatic guess a");
+
+        // SER316 TASK 2 SPOT-BUGS FIX: Close scanner to prevent resource leak
+        scanner.close();
     }
 }

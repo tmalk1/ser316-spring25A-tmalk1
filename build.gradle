@@ -1,7 +1,7 @@
-// plugins {
-//      id "com.github.spotbugs" version "5.0.13"
-//      id "checkstyle"
-// }
+plugins {
+     id "com.github.spotbugs" version "5.0.13"
+     id "checkstyle"
+}
 apply plugin: 'jacoco'
 apply plugin: 'application'
 
@@ -57,19 +57,19 @@ apply plugin: 'checkstyle'
 // Configure SpotBugs
 ///////////////////////////////////////////////////////////////////////
 // To generate an HTML report instead of XML
-// spotbugs {
-//     toolVersion = '4.8.4'
-//     ignoreFailures = true
-//     showProgress = true
-//     effort = 'max'
-//     reportLevel = 'low'
-// }
+spotbugs {
+    toolVersion = '4.8.4'
+    ignoreFailures = true
+    showProgress = true
+    effort = 'max'
+    reportLevel = 'low'
+}
 
-// tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
-//     reports {
-//         html.required.set(true)
-//         xml.required.set(false)
-//     }
-// }
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(false)
+    }
+}
 
 

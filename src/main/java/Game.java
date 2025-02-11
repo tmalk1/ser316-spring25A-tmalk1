@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -11,9 +12,6 @@ public class Game {
     /** Holds the points for the game. */
     private int points;
     
-    /** Holds the current round of the game. */
-    private int round;
-
     /** Holds the player's name. */
     private String playerName;
 
@@ -35,6 +33,9 @@ public class Game {
     /** List of all answers from makeGuess that were already returned. */
     private final ArrayList<Double> previousResults = new ArrayList<>();
 
+    /** Reusable Random instance to avoid creating multiple objects. */
+    private static final Random RANDOM = new Random(); // SER316 TASK 2 SPOT-BUGS FIX
+
     /**
      * Constructs a new game with a random word.
      * 
@@ -42,7 +43,7 @@ public class Game {
      */
     public Game(String playerName) {
         this.playerName = playerName;
-        setRandomWord();
+        this.answer = getRandomWord(); // SER316 TASK 2 SPOT-BUGS FIX
         this.points = 5;
         this.gameStatus = 0;
     }
@@ -97,7 +98,7 @@ public class Game {
      * @return The correct answer in lowercase.
      */
     public String getAnswer() {
-        return this.answer.toLowerCase();
+        return this.answer.toLowerCase(Locale.ROOT); // SER316 TASK 2 SPOT-BUGS FIX
     }
 
     /**
@@ -213,11 +214,12 @@ public class Game {
     }
 
     /**
-     * Sets a random word from a predefined list as the answer.
+     * Returns a random word from a predefined list.
+     *
+     * @return A random word.
      */
-    public void setRandomWord() {
+    private static String getRandomWord() { // SER316 TASK 2 SPOT-BUGS FIX
         String[] animals = {"dog", "horse", "pony", "cat", "lion", "bear", "lioncub"};
-        Random random = new Random();
-        this.answer = animals[random.nextInt(animals.length)];
+        return animals[RANDOM.nextInt(animals.length)];
     }
 }
