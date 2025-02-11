@@ -24,6 +24,7 @@ public class Game
 
     /** The path to the file holding the leaderboard.*/
     private String leaderboard = "leaderboard.txt";
+    private int attempts;
 
     /** The status of the game. {0 - In progress, 1 - Game won, 2 - game over}*/
     protected int gameStatus = 0;
@@ -184,8 +185,61 @@ public class Game
      * @return double returns the appropriate number
      */
     public double makeGuess(String guess) {
-        System.out.println("Implement me in assignment 3");
-        return 0.0;
+        if (gameStatus != 0) {
+            return 5.1;
+        }
+
+        if (guess.equalsIgnoreCase(answer)) {
+            gameStatus = 1;
+            points += 14;
+            return 0.0;
+        }
+
+        if (!guess.matches("[a-zA-Z]+")) {
+            points -= 3;
+            return 4.1;
+        }
+
+        if (guesses.contains(guess)) {
+            points -= 2;
+            return 4.0;
+        }
+
+        guesses.add(guess);
+        attempts++;
+
+        if (guess.length() < answer.length()) {
+            points -= 1;
+            return 2.2;
+        } else if (guess.length() > answer.length()) {
+            points -= 1;
+            return 2.1;
+        }
+
+        int correctLetters = countCorrectLetters(guess);
+        if (correctLetters > 0) {
+            points += 3;
+            return 3.0;
+        }
+
+        points -= 3;
+
+        if (attempts >= 10) {
+            gameStatus = 2;
+            return 5.0;
+        }
+
+        return 2.0;
+    }
+
+    private int countCorrectLetters(String guess) {
+        int correctCount = 0;
+        for (int i = 0; i < Math.min(answer.length(), guess.length()); i++) {
+            if (answer.charAt(i) == guess.charAt(i)) {
+                correctCount++;
+            }
+        }
+        return correctCount;
     }
 
     /**
