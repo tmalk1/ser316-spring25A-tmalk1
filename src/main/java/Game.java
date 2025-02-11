@@ -7,15 +7,7 @@ import java.util.Random;
  * The game starts with a score of 10, and points are adjusted based on guesses.
  * The game is lost when the user makes 10 incorrect guesses without finding the word.
  */
-
-public enum GameStatus {
-    IN_PROGRESS,
-    WON,
-    GAME_OVER
-}
-
-public class Game
-{
+public class Game {
 
 
     /** Holds the points for the game. */
@@ -60,7 +52,7 @@ public class Game
         this.gameStatus = 0;
     }
 
- 
+
     /**
      * Constructs a new game with a given word and player name.
      * 
@@ -123,8 +115,6 @@ public class Game
     public int getGameStatus() {
         return this.gameStatus;
     }
-
-    
 
     /**
      * Sets the points for the game.
@@ -240,5 +230,4 @@ public class Game
         return animals[RANDOM.nextInt(animals.length)];
     }
 }
-
 
