@@ -7,7 +7,16 @@ import java.util.Random;
  * The game starts with a score of 10, and points are adjusted based on guesses.
  * The game is lost when the user makes 10 incorrect guesses without finding the word.
  */
-public class Game {
+
+public enum GameStatus {
+    IN_PROGRESS,
+    WON,
+    GAME_OVER
+}
+
+public class Game
+{
+
 
     /** Holds the points for the game. */
     private int points;
@@ -27,8 +36,10 @@ public class Game {
     /** The status of the game: {0 - In progress, 1 - Game won, 2 - Game over}. */
     private int gameStatus;
 
+
     /** List of all guessed letters and words. */
     private final ArrayList<String> guesses = new ArrayList<>();
+
 
     /** List of all answers from makeGuess that were already returned. */
     private final ArrayList<Double> previousResults = new ArrayList<>();
@@ -41,6 +52,7 @@ public class Game {
      * 
      * @param playerName The name of the player.
      */
+
     public Game(String playerName) {
         this.playerName = playerName;
         this.answer = getRandomWord(); // SER316 TASK 2 SPOT-BUGS FIX
@@ -48,6 +60,7 @@ public class Game {
         this.gameStatus = 0;
     }
 
+ 
     /**
      * Constructs a new game with a given word and player name.
      * 
@@ -106,9 +119,12 @@ public class Game {
      * 
      * @return The game status.
      */
+
     public int getGameStatus() {
         return this.gameStatus;
     }
+
+    
 
     /**
      * Sets the points for the game.
@@ -218,8 +234,11 @@ public class Game {
      *
      * @return A random word.
      */
+
     private static String getRandomWord() { // SER316 TASK 2 SPOT-BUGS FIX
         String[] animals = {"dog", "horse", "pony", "cat", "lion", "bear", "lioncub"};
         return animals[RANDOM.nextInt(animals.length)];
     }
 }
+
+
