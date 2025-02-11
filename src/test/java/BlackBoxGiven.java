@@ -1,11 +1,13 @@
+import java.util.stream.Stream; // Moved before JUnit imports
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals; // Static imports go last
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BlackBoxGiven {
 
@@ -60,7 +62,7 @@ class BlackBoxGiven {
         game.initGame("lion", "Dr. M");
         double response = game.makeGuess("li");
         assertEquals(2.2, response, 0.0);
-        assertTrue(game.getPoints() < 14); // Adjust points logic as needed
+        assertTrue(game.getPoints() < 14);
         assertEquals(0, game.getGameStatus());
     }
 
@@ -71,7 +73,7 @@ class BlackBoxGiven {
         game.initGame("lion", "Dr. M");
         double response = game.makeGuess("lioncub");
         assertEquals(2.1, response, 0.0);
-        assertTrue(game.getPoints() < 14); // Adjust points logic as needed
+        assertTrue(game.getPoints() < 14);
         assertEquals(0, game.getGameStatus());
     }
 
@@ -80,11 +82,11 @@ class BlackBoxGiven {
     @DisplayName("Test Repeated Guess")
     void testRepeatGuess(Game game) {
         game.initGame("lion", "Dr. M");
-        game.makeGuess("lion"); // First correct guess
-        double response = game.makeGuess("lion"); // Repeated guess
+        game.makeGuess("lion");
+        double response = game.makeGuess("lion");
         assertEquals(4.0, response, 0.0);
-        assertTrue(game.getPoints() < 14); // Adjust points logic as needed
-        assertEquals(1, game.getGameStatus()); // Already won
+        assertTrue(game.getPoints() < 14);
+        assertEquals(1, game.getGameStatus());
     }
 
     @ParameterizedTest
@@ -94,7 +96,7 @@ class BlackBoxGiven {
         game.initGame("lion", "Dr. M");
         double response = game.makeGuess("l!0n");
         assertEquals(4.1, response, 0.0);
-        assertTrue(game.getPoints() < 14); // Adjust points logic as needed
+        assertTrue(game.getPoints() < 14);
         assertEquals(0, game.getGameStatus());
     }
 
@@ -105,7 +107,7 @@ class BlackBoxGiven {
         game.initGame("lion", "Dr. M");
         double response = game.makeGuess("o");
         assertEquals(1.1, response, 0.0);
-        assertTrue(game.getPoints() > 0); // Adjust points logic as needed
+        assertTrue(game.getPoints() > 0);
         assertEquals(0, game.getGameStatus());
     }
 
@@ -116,7 +118,7 @@ class BlackBoxGiven {
         game.initGame("lion", "Dr. M");
         double response = game.makeGuess("z");
         assertEquals(1.0, response, 0.0);
-        assertTrue(game.getPoints() > 0); // No points lost for incorrect letter
+        assertTrue(game.getPoints() > 0);
         assertEquals(0, game.getGameStatus());
     }
 
@@ -126,11 +128,11 @@ class BlackBoxGiven {
     void testMaxAttempts(Game game) {
         game.initGame("lion", "Dr. M");
         for (int i = 0; i < 10; i++) {
-            game.makeGuess("bear"); // Incorrect guesses
+            game.makeGuess("bear");
         }
         double response = game.makeGuess("bear");
         assertEquals(5.0, response, 0.0);
-        assertEquals(2, game.getGameStatus()); // Game over
+        assertEquals(2, game.getGameStatus());
     }
 
     @ParameterizedTest
@@ -138,9 +140,9 @@ class BlackBoxGiven {
     @DisplayName("Test Post-Game Guess")
     void testPostGameGuess(Game game) {
         game.initGame("lion", "Dr. M");
-        game.makeGuess("lion"); // Correct guess to win the game
-        double response = game.makeGuess("bear"); // Guess after game ends
+        game.makeGuess("lion");
+        double response = game.makeGuess("bear");
         assertEquals(5.1, response, 0.0);
-        assertEquals(1, game.getGameStatus()); // Still in a winning state
+        assertEquals(1, game.getGameStatus());
     }
 }
