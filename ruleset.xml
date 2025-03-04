@@ -22,6 +22,11 @@
         <property name="minimum" value="100"/>
     </properties>
 	</rule>
+    <rule ref="category/java/design.xml/ExcessiveImports">
+    <properties>
+        <property name="minimum" value="30" />
+    </properties>
+</rule>
 	<rule ref="category/java/design.xml/ExcessiveMethodLength">
 		<properties>
 	        <property name="minimum" value="30"/>
