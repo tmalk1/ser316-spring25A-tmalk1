@@ -1,29 +1,36 @@
 import java.util.Scanner;
-import java.nio.charset.StandardCharsets;
 
-/**
- * This is the main class that initializes and runs the game.
- */
 public class Main {
-    
-    // SER316 TASK 2 SPOT-BUGS FIX: Explicitly specify UTF-8 encoding to avoid reliance on default encoding
-    static Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8); 
-
-    /**
-     * The main method that starts the game.
-     * It initializes a Game instance and makes a sample guess.
-     *
-     * @param args Command-line arguments (not used).
-     */
     public static void main(String[] args) {
-        // Just some calls
-        System.out.println("Getting started");
-        Game game = new Game("Student");
-        System.out.println("Current word: " + game.getAnswer());
-        System.out.println(game.makeGuess("a"));
-        System.out.println("Automatic guess a");
+        Scanner scanner = new Scanner(System.in);
 
-        // SER316 TASK 2 SPOT-BUGS FIX: Close scanner to prevent resource leak
+        System.out.println("Welcome to the Word Guessing Game!");
+        System.out.print("Enter your name: ");
+        String playerName = scanner.nextLine();
+
+        Game game = Game.createGame(playerName);
+      
+
+        while (game.getGameStatus() == GameStatus.IN_PROGRESS){
+            System.out.print("Enter your guess: ");
+            String guess = scanner.nextLine();
+
+            double result = game.makeGuess(guess);
+
+            if (result == 0.0) {
+                System.out.println("🎉 Congratulations! You won! Your score: " + game.getPoints());
+                break;
+            } else if (result == 5.0) {
+                System.out.println("😢 Game over! The correct word was: " + game.getAnswer());
+                break;
+            } else {
+                System.out.println("❌ Incorrect guess! Current score: " + game.getPoints());
+            }
+        }
+
+        game.updateLeaderboard(); 
+        game.displayLeaderboard();
+
         scanner.close();
     }
 }

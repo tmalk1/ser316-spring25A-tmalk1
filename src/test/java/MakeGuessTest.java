@@ -2,21 +2,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals; // Static imports go after regular imports
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MakeGuessTest {
-    
-    private Game game = new Game();
+
+    private Game game;
 
     @BeforeEach
     public void setUp() {
-        game.initGame("horse", "Zach");
+        game = Game.createGame("Dr. M"); 
     }
-    
+
     @Test
-    @DisplayName("Test correct word guess")
-    public void correctGuess() {
-        double result = game.makeGuess("horse");
-        assertEquals(0, result, 0.0001);
+    @DisplayName("Test Correct Guess")
+    void testCorrectGuess() {
+        String answer = game.getAnswer();
+        double response = game.makeGuess(answer);
+        assertEquals(0.0, response, 0.0);
+        assertEquals(1, game.getGameStatus());
     }
 }
